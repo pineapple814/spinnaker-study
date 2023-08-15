@@ -2,26 +2,26 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
     labels:
-        app: mental-disk-microservice-microservice
+        app: mental-disk-microservice
         stack: frontend
         source: demo
-    name: mental-disk-microservice-microservice
+    name: mental-disk-microservice
     namespace: microservices
 spec:
     replicas: 5
     selector:
         matchLabels:
-            run: mental-disk-microservice-microservice
+            run: mental-disk-microservice
     template:
         metadata:
             labels:
-                app: mental-disk-microservice-microservice
-                run: mental-disk-microservice-microservice
+                app: mental-disk-microservice
+                run: mental-disk-microservice
                 source: demo
         spec:
             containers:
                 -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/mental-disk-microservice
-                    name: mental-disk-microservice-microservice
+                    name: mental-disk-microservice
                     ports:
                         -   name: web
                             containerPort: 8080
@@ -31,14 +31,14 @@ kind: Service
 apiVersion: v1
 metadata:
     labels:
-        app: mental-disk-microservice-microservice-service
+        app: mental-disk-microservice-service
         stack: frontend
-    name: mental-disk-microservice-microservice-service
+    name: mental-disk-microservice-service
     namespace: microservices
 spec:
     selector:
         source: demo
-        app: mental-disk-microservice-microservice
+        app: mental-disk-microservice
     ports:
         -   name: web
             protocol: TCP
@@ -54,7 +54,7 @@ metadata:
         stack: frontend
     annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /$2
-    name: mental-disk-microservice-ingress
+    name: mental-disk-ingress
     namespace: microservices
 spec:
     ingressClassName: nginx
@@ -62,10 +62,10 @@ spec:
         -   http:
                 paths:
                     -  pathType: Prefix 
-                       path: /mental-disk-microservice(/|$)(.*)
+                       path: /mental-disk(/|$)(.*)
                        backend:
                           service:
-                            name: mental-disk-microservice-microservice-service
+                            name: mental-disk-microservice-service
                             port: 
                                number: 30201
 
