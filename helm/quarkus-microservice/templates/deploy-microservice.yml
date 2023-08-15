@@ -58,8 +58,6 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-    labels:
-        stack: frontend
     annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /$2
     name: {{.Release.Name}}-ingress
@@ -69,10 +67,10 @@ spec:
     rules:
         -   http:
                 paths:
-                    -  pathType: Prefix 
-                       path: /{{.Release.Name}}(/|$)(.*)
-                       backend:
-                          service:
-                            name: {{.Release.Name}}-microservice-service
-                            port: 
-                               number: 30201
+                    - pathType: Prefix
+                      path: /{{.Release.Name}}(/|$)(.*)
+                        backend:
+                            service: 
+                                name: {{.Release.Name}}-microservice-service 
+                                port: 
+                                    number: 30201
